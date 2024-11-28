@@ -14,11 +14,14 @@ export class DesignationsComponent implements OnInit{
 
   designationList:IDesignation[]=[];
 
+  isLoader:boolean=true;
+
   masterService=inject(MasterService);
 
   ngOnInit(): void {
       this.masterService.getAllDesignations().subscribe((res:APIResponseModel)=>{
          this.designationList=res.data;
+         this.isLoader=false;
       },error=>{
         alert("API error / Network Down")
       })
