@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-12 text-center">
+    <div class="btn-group">
+      <button
+        type="button"
+        (click)="changeTab('Roles')"
+        class="btn"
+        [ngClass]="
+          currentComponent == 'Roles' ? 'btn btn-success' : 'btn btn-primary'
+        "
+      >
+        Roles
+      </button>
+      <button
+        type="button"
+        (click)="changeTab('Designation')"
+        class="btn"
+        [ngClass]="
+          currentComponent == 'Designation'
+            ? 'btn btn-success'
+            : 'btn btn-primary'
+        "
+      >
+        Designation
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let item of items" class="col-14 text-center">
+  {{ item }}
+</div>
+
+<button class="btn btn-primary" (click)="addItem()">Add Item</button>
+
+<div class="row">
+  <div class="col-12" *ngIf="currentComponent == 'Roles'">
+    <app-roles></app-roles>
+  </div>
+  <div class="col-12" *ngIf="currentComponent == 'Designation'">
+    <app-designations></app-designations>
+  </div>
+</div>
