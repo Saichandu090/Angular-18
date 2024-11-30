@@ -50,6 +50,17 @@
                         <div class="col-6">
                             <label for="">Project Name</label>
                             <input type="text" formControlName="projectName" class="form-control" />
+                            @if(projectForm.touched){
+                                <div class="text-danger">
+                                    @if(projectForm.controls['projectName'].errors?.['required']){
+                                        <span>This is Required</span>
+                                    }
+                                    @if(projectForm.controls['projectName'].errors?.['minlength']){
+                                        <span>Minimum Length is 4 characters</span>
+                                    }
+                                </div>
+                            }
+                            
                         </div>
                         <div class="col-6">
                             <label for="">Start Date</label>
@@ -87,12 +98,18 @@
                             <label for="">Save Client</label>
                             <select formControlName="clientId">
                                 <option value="">Select Client</option>
+                                @for (item of clientList; track $index) {
+                                    <option [value]="item.clientId">{{item.companyName}}</option>
+                                }
                             </select>
                         </div>
                         <div class="col-6">
                             <label for="">Lead by</label>
                             <select formControlName="leadByEmpId">
                                 <option value="">Select Employee</option>
+                                @for (item of employeeList; track $index) {
+                                    <option [value]="item.empId">{{item.empName}} - {{item.empCode}}</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -101,7 +118,7 @@
                             <button class="btn btn-secondary">Reset</button>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-success">
+                            <button class="btn btn-success" [disabled]="projectForm.invalid" (click)="onSaveProject()">
                                 Save Client-Project
                             </button>
                         </div>
